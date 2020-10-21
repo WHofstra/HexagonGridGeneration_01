@@ -11,7 +11,17 @@ public class Constants : MonoBehaviour
 
     public class Math
     {
-        public const float DEGREE_TO_RADIAN = (Mathf.PI / 180);
-        public const float RADIAN_TO_DEGREE = (180 / Mathf.PI);
+        public const float DEGREE_TO_RADIAN = (Mathf.PI / 180f);
+        public const float RADIAN_TO_DEGREE = (180f / Mathf.PI);
+    }
+
+    public class VertexCount
+    {
+        public const int HEXAGON = 6;
+    }
+
+    public class PolygonCount
+    {
+        public const int HEXAGON = 12;
     }
 }

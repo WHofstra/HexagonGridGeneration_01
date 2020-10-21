@@ -10,6 +10,7 @@ public class MeshGeneration : MonoBehaviour
 
     protected Vector3[] vertices;
     protected Vector3[] normals;
+    protected Vector2[] uvCoords;
     protected int[] tris;
 
     virtual protected void Start()

@@ -12,7 +12,7 @@ public class HexagonMesh : MeshGeneration
 
     protected void DrawMesh()
     {
-        vertices = new Vector3[6]
+        vertices = new Vector3[Constants.VertexCount.HEXAGON]
         {
             new Vector3(Mathf.Cos(30  * Constants.Math.DEGREE_TO_RADIAN), Mathf.Sin(30  * Constants.Math.DEGREE_TO_RADIAN), 0f),
             new Vector3(Mathf.Cos(90  * Constants.Math.DEGREE_TO_RADIAN), Mathf.Sin(90  * Constants.Math.DEGREE_TO_RADIAN), 0f),
@@ -22,16 +22,23 @@ public class HexagonMesh : MeshGeneration
             new Vector3(Mathf.Cos(330 * Constants.Math.DEGREE_TO_RADIAN), Mathf.Sin(330 * Constants.Math.DEGREE_TO_RADIAN), 0f)
         };
 
-        tris = new int[12] { 0, 1, 5, 1, 4, 5, 1, 2, 4, 2, 3, 4 };
-
-        normals = new Vector3[6]
+        normals = new Vector3[Constants.VertexCount.HEXAGON] 
         {
             -Vector3.forward, -Vector3.forward, -Vector3.forward,
             -Vector3.forward, -Vector3.forward, -Vector3.forward
         };
 
-        mesh.vertices = vertices;
+        uvCoords = new Vector2[Constants.VertexCount.HEXAGON]
+        {
+            new Vector2(0f, 0f), new Vector2(0f, 0f), new Vector2(1f, 0f),
+            new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 0f)
+        };
+
+        tris = new int[Constants.PolygonCount.HEXAGON] { 0, 1, 5, 1, 4, 5, 1, 2, 4, 2, 3, 4 };
+
+        mesh.vertices  = vertices;
         mesh.triangles = tris;
-        mesh.normals = normals;
+        mesh.normals   = normals;
+        mesh.uv        = uvCoords;
     }
 }
