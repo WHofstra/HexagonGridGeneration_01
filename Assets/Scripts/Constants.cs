@@ -17,13 +17,15 @@ public class Constants : MonoBehaviour
 
     public class VertexCount
     {
-        public const int TRIANGLE = 3;
-        public const int HEXAGON  = 6;
+        public const int TRIANGLE     = 3;
+        public const int HEXAGON      = 6;
+        public const int HEXAGON_MESH = 12;
     }
 
     public class PolygonCount
     {
-        public const int TRIANGLE = 3;
-        public const int HEXAGON  = 12;
+        public const int TRIANGLE     = 3;
+        public const int HEXAGON      = 12;
+        public const int HEXAGON_MESH = 60;
     }
 }

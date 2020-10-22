@@ -19,13 +19,11 @@ public class Polygon : MeshGeneration
             new Vector3(Mathf.Cos(240 * Constants.Math.DEGREE_TO_RADIAN), 0f, Mathf.Sin(240 * Constants.Math.DEGREE_TO_RADIAN))
         };
 
-        normals = new Vector3[Constants.VertexCount.TRIANGLE]
-        {
+        normals = new Vector3[Constants.VertexCount.TRIANGLE] {
             -Vector3.forward, -Vector3.forward, -Vector3.forward
         };
 
-        uvCoords = new Vector2[Constants.VertexCount.TRIANGLE]
-        {
+        uvCoords = new Vector2[Constants.VertexCount.TRIANGLE] {
             new Vector2(0, 0), new Vector2(1, 0), new Vector2(1, 1)
         };
 
