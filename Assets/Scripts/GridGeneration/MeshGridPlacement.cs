@@ -8,6 +8,7 @@ public class MeshGridPlacement : MonoBehaviour
     [SerializeField] Vector2 _gridLength;
 
     Vector3[,] grid;
+    float hexAngle;
 
     void Start()
     {
@@ -17,20 +18,34 @@ public class MeshGridPlacement : MonoBehaviour
     void InitGrid()
     {
         grid = new Vector3[(int)_gridLength.x, (int)_gridLength.y];
+        hexAngle = Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN);
 
-        grid[0, 0] = new Vector3(0f, 0f, 0f);
-        Instantiate(_mesh, grid[0, 0], transform.rotation, transform);
+        grid[0, 0] = new Vector3(transform.position.x - (hexAngle * (grid.GetLength(0) - 0.5f)),
+                                 transform.position.y, transform.position.z + (Mathf.Pow(hexAngle, 2) *
+                                (grid.GetLength(1) - 1)));
 
-        //Instantiate(_mesh, grid[1, 0], transform.rotation, transform);
+        grid[0, 1] = new Vector3(grid[0, 0].x + (Mathf.Cos(60 * Constants.Math.DEGREE_TO_RADIAN) * hexAngle * 2),
+                                 transform.position.y, grid[0, 0].z - (Mathf.Pow(hexAngle, 2) * 2));
 
-        //for (int i = 0; i < 2; i++) {
-        int i = 0;
-            for (int j = 1; j < grid.GetLength(1); j++)
+        for (int i = 2; i < grid.GetLength(1); i++)
+        {
+            grid[0, i] = new Vector3(grid[0, (i - 2)].x, transform.position.y,
+                                     grid[0, (i - 2)].z - (Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 4));
+        }
+
+        for (int i = 0; i < grid.GetLength(1); i++) {
+            for (int j = 1; j < grid.GetLength(0); j++)
             {
-                grid[i, j] = new Vector3(grid[i, (j - 1)].x + (2 * Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN)),
-                                         grid[i, (j - 1)].y, grid[i, (j - 1)].z);
-                Instantiate(_mesh, grid[i, j], transform.rotation, transform);
+                grid[j, i] = new Vector3(grid[(j - 1), i].x + (2 * hexAngle),
+                                         transform.position.y, grid[(j - 1), i].z);
             }
-        //}
+        }
+
+        for (int i = 0; i < grid.GetLength(1); i++) {
+            for (int j = 0; j < grid.GetLength(0); j++)
+            {
+                Instantiate(_mesh, grid[j, i], transform.rotation, transform);
+            }
+        }
     }
 }
