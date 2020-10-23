@@ -19,6 +19,7 @@ public class MeshGeneration : MonoBehaviour
     {
         rendr = gameObject.AddComponent<MeshRenderer>();
         filter = gameObject.AddComponent<MeshFilter>();
+
         rendr.sharedMaterial = new Material(Shader.Find(Constants.Material.STANDARD));
         mesh = new Mesh();
 

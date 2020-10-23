@@ -8,25 +8,22 @@ public class HexagonMesh : MeshGeneration
     {
         base.Start();
         DrawMesh();
+        SetMesh();
     }
 
     protected void DrawMesh()
     {
-        vertices = new Vector3[Constants.VertexCount.HEXAGON_MESH]
-        {
-            new Vector3(Mathf.Cos(30  * Constants.Math.DEGREE_TO_RADIAN),  0.5f, Mathf.Sin(30  * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(90  * Constants.Math.DEGREE_TO_RADIAN),  0.5f, Mathf.Sin(90  * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(150 * Constants.Math.DEGREE_TO_RADIAN),  0.5f, Mathf.Sin(150 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(210 * Constants.Math.DEGREE_TO_RADIAN),  0.5f, Mathf.Sin(210 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(270 * Constants.Math.DEGREE_TO_RADIAN),  0.5f, Mathf.Sin(270 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(330 * Constants.Math.DEGREE_TO_RADIAN),  0.5f, Mathf.Sin(330 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(30  * Constants.Math.DEGREE_TO_RADIAN), -0.5f, Mathf.Sin(30  * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(90  * Constants.Math.DEGREE_TO_RADIAN), -0.5f, Mathf.Sin(90  * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(150 * Constants.Math.DEGREE_TO_RADIAN), -0.5f, Mathf.Sin(150 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(210 * Constants.Math.DEGREE_TO_RADIAN), -0.5f, Mathf.Sin(210 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(270 * Constants.Math.DEGREE_TO_RADIAN), -0.5f, Mathf.Sin(270 * Constants.Math.DEGREE_TO_RADIAN)),
-            new Vector3(Mathf.Cos(330 * Constants.Math.DEGREE_TO_RADIAN), -0.5f, Mathf.Sin(330 * Constants.Math.DEGREE_TO_RADIAN))
-        };
+        vertices = new Vector3[Constants.VertexCount.HEXAGON_MESH];
+
+        for (int i = 0; i < 6; i++) {
+            vertices[i] = new Vector3(Mathf.Cos((30 + (i * 60)) * Constants.Math.DEGREE_TO_RADIAN), 0.5f,
+                                      Mathf.Sin((30 + (i * 60)) * Constants.Math.DEGREE_TO_RADIAN));
+        }
+        
+        for (int i = 6; i < vertices.Length; i++) {
+            vertices[i] = new Vector3(Mathf.Cos((30 + ((i - 6) * 60)) * Constants.Math.DEGREE_TO_RADIAN), -0.5f,
+                                      Mathf.Sin((30 + ((i - 6) * 60)) * Constants.Math.DEGREE_TO_RADIAN));
+        }
 
         normals = new Vector3[Constants.VertexCount.HEXAGON_MESH] 
         {
@@ -50,7 +47,5 @@ public class HexagonMesh : MeshGeneration
             4,  5, 11,  4, 11, 10,  5,  0,  6,  5,  6, 11,
             6, 10, 11,  6,  9, 10,  6,  7,  9,  7,  8,  9    //Lower Hexagon
         };
-
-        SetMesh();
     }
 }

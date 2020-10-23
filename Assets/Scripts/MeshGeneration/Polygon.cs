@@ -8,6 +8,7 @@ public class Polygon : MeshGeneration
     {
         base.Start();
         DrawMesh();
+        SetMesh();
     }
 
     protected void DrawMesh()
@@ -28,7 +29,5 @@ public class Polygon : MeshGeneration
         };
 
         tris = new int[Constants.PolygonCount.TRIANGLE] { 0, 2, 1 };
-
-        SetMesh();
     }
 }
