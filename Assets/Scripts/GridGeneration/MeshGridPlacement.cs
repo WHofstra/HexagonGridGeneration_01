@@ -7,8 +7,10 @@ public class MeshGridPlacement : MonoBehaviour
     [SerializeField] GameObject _mesh;
     [SerializeField] Vector2 _gridLength;
 
-    Vector3[,] grid;
+    Vector3[] gridPosition = new Vector3[2];
+    float offset;
     float hexAngle;
+    bool getOffset;
 
     void Start()
     {
@@ -17,42 +19,28 @@ public class MeshGridPlacement : MonoBehaviour
 
     void InitGrid()
     {
-        grid = new Vector3[(int)_gridLength.x, (int)_gridLength.y];
+        getOffset = false;
         hexAngle = Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN);
+        gridPosition[0] = new Vector3(transform.position.x - (hexAngle * (_gridLength.x - 0.5f)),
+                                      transform.position.y, transform.position.z + (Mathf.Pow(hexAngle, 2) *
+                                     (_gridLength.y - 1)));
+        offset = Mathf.Cos(60 * Constants.Math.DEGREE_TO_RADIAN) * hexAngle * 2;
 
-        grid[0, 0] = new Vector3(transform.position.x - (hexAngle * (grid.GetLength(0) - 0.5f)),
-                                 transform.position.y, transform.position.z + (Mathf.Pow(hexAngle, 2) *
-                                (grid.GetLength(1) - 1)));
-
-        if (grid.GetLength(1) > 1) {
-            grid[0, 1] = new Vector3(grid[0, 0].x + (Mathf.Cos(60 * Constants.Math.DEGREE_TO_RADIAN) * hexAngle * 2),
-                                     transform.position.y, grid[0, 0].z - (Mathf.Pow(hexAngle, 2) * 2));
-        }
-
-        if (grid.GetLength(1) > 2) {
-            for (int i = 2; i < grid.GetLength(1); i++)
+        for (int i = 0; i < _gridLength.y; i++) {
+            for (int j = 0; j < _gridLength.x; j++)
             {
-                grid[0, i] = new Vector3(grid[0, (i - 2)].x, transform.position.y,
-                                         grid[0, (i - 2)].z - (Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 4));
-            }
-        }
-
-        for (int i = 0; i < grid.GetLength(1); i++)
-        {
-            if (grid.GetLength(0) > 1) {
-                for (int j = 1; j < grid.GetLength(0); j++)
-                {
-                    grid[j, i] = new Vector3(grid[(j - 1), i].x + (2 * hexAngle),
-                                             transform.position.y, grid[(j - 1), i].z);
+                if (getOffset) {
+                    gridPosition[1] = new Vector3(gridPosition[0].x + (j * 2 * hexAngle) + offset, transform.position.y,
+                                                  gridPosition[0].z - (i * Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 2));
                 }
+                else {
+                    gridPosition[1] = new Vector3(gridPosition[0].x + (j * 2 * hexAngle), transform.position.y,
+                                                  gridPosition[0].z - (i * Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 2));
+                }
+                
+                Instantiate(_mesh, gridPosition[1], transform.rotation, transform);
             }
-        }
-
-        for (int i = 0; i < grid.GetLength(1); i++) {
-            for (int j = 0; j < grid.GetLength(0); j++)
-            {
-                Instantiate(_mesh, grid[j, i], transform.rotation, transform);
-            }
+            getOffset = !getOffset;
         }
     }
 }

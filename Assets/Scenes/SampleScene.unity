@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mesh: {fileID: 9082969911566205688, guid: ac6c50ca789c602478481589db9a3ada, type: 3}
-  _gridLength: {x: 1, y: 1}
+  _gridLength: {x: 6, y: 6}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
