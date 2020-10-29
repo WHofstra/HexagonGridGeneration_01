@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Polygon : MeshGeneration
 {
+    //This class is created to test polygon/mesh generation
     protected override void Start()
     {
         base.Start();
