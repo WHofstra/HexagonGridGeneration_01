@@ -29,15 +29,10 @@ public class MeshGridPlacement : MonoBehaviour
         for (int i = 0; i < _gridLength.y; i++) {
             for (int j = 0; j < _gridLength.x; j++)
             {
-                if (getOffset) {
-                    gridPosition[1] = new Vector3(gridPosition[0].x + (j * 2 * hexAngle) + offset, transform.position.y,
+                gridPosition[1] = new Vector3(gridPosition[0].x + (j * 2 * hexAngle), transform.position.y,
                                                   gridPosition[0].z - (i * Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 2));
-                }
-                else {
-                    gridPosition[1] = new Vector3(gridPosition[0].x + (j * 2 * hexAngle), transform.position.y,
-                                                  gridPosition[0].z - (i * Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 2));
-                }
-                
+
+                if (getOffset) gridPosition[1].x += offset;
                 Instantiate(_mesh, gridPosition[1], transform.rotation, transform);
             }
             getOffset = !getOffset;
