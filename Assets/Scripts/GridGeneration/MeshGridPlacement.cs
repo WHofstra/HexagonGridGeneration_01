@@ -27,7 +27,7 @@ public class MeshGridPlacement : MonoBehaviour
         for (int i = 0; i < (_gridLength.x * _gridLength.y); i++)
         {
             gridPosition[1] = new Vector3(gridPosition[0].x + ((i % _gridLength.x) * 2 * hexAngle), transform.position.y,
-                                          gridPosition[0].z - (Mathf.FloorToInt(i / _gridLength.y) * Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 2));
+                                          gridPosition[0].z - (Mathf.FloorToInt(i / _gridLength.x) * Mathf.Pow(Mathf.Sin(60 * Constants.Math.DEGREE_TO_RADIAN), 2) * 2));
 
             if ((i % (_gridLength.x * 2)) >= _gridLength.x && (i % (_gridLength.x * 2)) < (_gridLength.x * 2)) {
                 gridPosition[1].x += offset;
